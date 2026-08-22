@@ -21,7 +21,7 @@ importers:
         specifier: 1.6.1
         version: 1.6.1(next@16.3.0(@babel/core@7.29.7)(@types/node@24.10.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       '@vercel/connect':
-        specifier: 0.9.0
+        specifier: '>=0.9.0'
         version: 0.9.0(ai@7.0.77(zod@4.4.3))(eve@0.44.3(ai@7.0.77(zod@4.4.3))(dotenv@17.4.2)(jiti@2.7.0))
       ai:
         specifier: ^7.0.58
