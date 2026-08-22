@@ -37,7 +37,7 @@ export function Hero() {
       <div className="flex w-full max-w-sm flex-col items-center gap-3">
         <div className="w-full rounded-3xl rounded-br-md bg-primary px-5 py-3 text-left text-primary-foreground shadow-lg">
           <p className="text-[15px] leading-snug">
-            {"u-um... hi! (\u00b4\uff40) you can text me anything, and i\u2019ll do my little best~"}
+            {"u-um... hi! (\u2019\u03c9\u2019) you can text me anything, and i\u2019ll do my little best~"}
           </p>
         </div>
         <p className="text-xs text-muted-foreground">
