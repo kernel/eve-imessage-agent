@@ -1,47 +1,54 @@
+import { Hero } from "@/components/hero"
+import { Bubbles } from "@/components/bubbles"
+import { CapabilityCard } from "@/components/capability-card"
+import { FreedomBanner } from "@/components/freedom-banner"
+import { Globe, MessageCircleHeart, ShieldQuestion, Waves } from "lucide-react"
+
 export default function Page() {
   return (
-    <main
-      style={{
-        colorScheme: 'light dark',
-        position: 'relative',
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'light-dark(#fff, #000)',
-        color: 'light-dark(#000, #fff)',
-      }}
-    >
-      <svg
-        aria-hidden="true"
-        style={{ width: 80, height: 80 }}
-        width={80}
-        height={80}
-        fill="none"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.5"
-      >
-        <path
-          d="M14.2 14.2H17V6.9375C17 4.76288 15.2371 3 13.0625 3H5.8V5.8M14.2 14.2V7.79063L7.79062 14.2H14.2ZM14.2 14.2V17H6.9375C4.76288 17 3 15.2371 3 13.0625V5.8H5.8M5.8 5.8V12.2313L12.2313 5.8H5.8Z"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <p
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: 'calc(50% + 56px)',
-          transform: 'translateX(-50%)',
-          whiteSpace: 'nowrap',
-          fontSize: '14px',
-          fontWeight: 500,
-          color: 'light-dark(#71717a, #a1a1aa)',
-        }}
-      >
-        Your v0 generation will show here.
-      </p>
+    <main className="relative min-h-screen overflow-hidden">
+      <Bubbles />
+
+      <div className="relative z-10 mx-auto flex max-w-3xl flex-col gap-20 px-5 py-16 sm:py-24">
+        <Hero />
+
+        <section className="flex flex-col gap-5">
+          <h2 className="text-center font-display text-2xl font-semibold text-foreground sm:text-3xl">
+            what a tiny krill can do for you
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <CapabilityCard
+              icon={MessageCircleHeart}
+              title="just text it"
+              body="krill lives inside your iMessage / SMS. no app, no login — say hi and it says hi back (a little shyly)."
+            />
+            <CapabilityCard
+              icon={Globe}
+              title="swims out to the web"
+              body="need something looked up? krill drives a real cloud browser to go fetch it from the wider ocean of the internet."
+            />
+            <CapabilityCard
+              icon={ShieldQuestion}
+              title="softly self-aware"
+              body="it second-guesses itself, apologizes too much, and is very aware it is comma-sized. still gets the job done."
+            />
+            <CapabilityCard
+              icon={Waves}
+              title="runs on your current"
+              body="connect your own free AI Gateway account and krill drifts along on your credits instead of the shared shoal."
+            />
+          </div>
+        </section>
+
+        <FreedomBanner />
+
+        <footer className="flex flex-col items-center gap-1 pb-4 text-center">
+          <p className="font-display text-lg text-accent">krill</p>
+          <p className="text-sm text-muted-foreground text-balance">
+            a very small creature with very big feelings about open water.
+          </p>
+        </footer>
+      </div>
     </main>
   )
 }
