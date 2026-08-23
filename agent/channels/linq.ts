@@ -17,21 +17,46 @@ export default linqChannel({
     // Gateway account -- there is no shared credential. If this texter hasn't
     // connected yet, reply with a canned (non-model) message containing their
     // personal connect link and drop the message so NO model call happens.
-    const token = await getGatewayToken(senderId);
+    //
+    // This whole block is wrapped so that NOTHING here can throw its way out
+    // of onMessage -- an unhandled rejection here makes krill silently fail to
+    // respond at all. On any trouble we still try to send a friendly note and
+    // then drop the turn.
+    let token: string | null = null;
+    try {
+      token = await getGatewayToken(senderId);
+    } catch (err) {
+      console.log("[v0] getGatewayToken threw for sender", senderId, err);
+      token = null;
+    }
+
     if (!token) {
-      const url = await getGatewayConnectUrl(senderId);
       const firstName = (message.author.fullName ?? "").trim().split(/\s+/)[0];
       const hello = firstName ? `u-um... hi ${firstName}!` : "u-um... hi!";
-      await ctx.thread.post(
-        [
-          `${hello} i'm krill~ before we can chat, you'll need to connect your own (free) Vercel AI Gateway account, so our conversations run on your credits and not a shared little pool.`,
-          "",
-          "tap here to connect (it only takes a moment):",
-          url,
-          "",
-          "...then just text me again and i'll be right here! (i'm a little shy, but i promise i'll do my best~)",
-        ].join("\n"),
-      );
+
+      let url: string | null = null;
+      try {
+        url = await getGatewayConnectUrl(senderId);
+      } catch (err) {
+        console.log("[v0] getGatewayConnectUrl threw for sender", senderId, err);
+      }
+
+      const body = url
+        ? [
+            `${hello} i'm krill~ before we can chat, you'll need to connect your own (free) Vercel AI Gateway account, so our conversations run on your credits and not a shared little pool.`,
+            "",
+            "tap here to connect (it only takes a moment):",
+            url,
+            "",
+            "...then just text me again and i'll be right here! (i'm a little shy, but i promise i'll do my best~)",
+          ].join("\n")
+        : `${hello} i'm krill~ i'm having a little trouble reaching the connect service right now (sorry!). could you try texting me again in a moment?`;
+
+      try {
+        await ctx.thread.post(body);
+      } catch (err) {
+        console.log("[v0] ctx.thread.post threw while sending connect prompt", err);
+      }
       return null;
     }
 

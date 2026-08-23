@@ -94,6 +94,7 @@ export function Hero() {
 
         <Button
           size="lg"
+          nativeButton={false}
           className="w-full gap-2 rounded-full text-base font-semibold shadow-lg shadow-primary/25"
           render={<a href={KRILL_SMS_HREF} />}
         >
