@@ -1,4 +1,12 @@
 import Image from "next/image"
+import { MessageCircle } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
+// krill's inbound iMessage / SMS line
+const KRILL_NUMBER = "+12055030476"
+const KRILL_NUMBER_DISPLAY = "+1 (205) 503-0476"
+const KRILL_GREETING = "hi krill!"
+const KRILL_SMS_HREF = `sms:${KRILL_NUMBER}?&body=${encodeURIComponent(KRILL_GREETING)}`
 
 // small satellite bubbles that rise past krill's own bubble
 const RISING_BUBBLES = [
@@ -77,15 +85,29 @@ export function Hero() {
         </p>
       </div>
 
-      <div className="flex w-full max-w-sm flex-col items-center gap-3">
+      <div className="flex w-full max-w-sm flex-col items-center gap-4">
         <div className="w-full rounded-3xl rounded-br-md bg-primary px-5 py-3 text-left text-primary-foreground shadow-lg">
           <p className="text-[15px] leading-snug">
             {"u-um... hi! you can text me anything, and i\u2019ll do my little best to help~"}
           </p>
         </div>
-        <p className="text-xs text-muted-foreground">
-          text krill on the number your ocean-keeper set up
-        </p>
+
+        <Button
+          asChild
+          size="lg"
+          className="w-full gap-2 rounded-full text-base font-semibold shadow-lg shadow-primary/25"
+        >
+          <a href={KRILL_SMS_HREF} className="inline-flex items-center justify-center gap-2">
+            <MessageCircle className="size-5 shrink-0" aria-hidden="true" />
+            text krill
+          </a>
+        </Button>
+        <a
+          href={KRILL_SMS_HREF}
+          className="text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
+        >
+          {KRILL_NUMBER_DISPLAY}
+        </a>
       </div>
     </section>
   )
