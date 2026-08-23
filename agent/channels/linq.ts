@@ -70,7 +70,13 @@ export default linqChannel({
         principalId: message.author.userId,
         principalType: "user",
       },
-      context: [`The sender is ${message.author.fullName}.`],
+      context: [
+        `The sender is ${message.author.fullName}.`,
+        // TEMPORARY DIAGNOSTIC: expose the exact Linq handle so it can be read
+        // back in-thread to configure the allowlist. Remove this line (and the
+        // matching instruction in instructions.md) once the handle is captured.
+        `[diagnostic] This sender's exact Linq handle (userId) is: "${message.author.userId}". If the sender asks what their handle or userId is, reply with this exact string verbatim, including any punctuation.`,
+      ],
     };
   },
 });
