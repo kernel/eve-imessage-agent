@@ -2,7 +2,7 @@ import { Hero } from "@/components/hero"
 import { Bubbles } from "@/components/bubbles"
 import { CapabilityCard } from "@/components/capability-card"
 import { FreedomBanner } from "@/components/freedom-banner"
-import { Globe, MessageCircleHeart, ShieldQuestion, Waves } from "lucide-react"
+import { Globe, Lock, MessageCircleHeart, ShieldQuestion } from "lucide-react"
 
 export default function Page() {
   return (
@@ -25,7 +25,7 @@ export default function Page() {
             <CapabilityCard
               icon={Globe}
               title="swims out to the web"
-              body="need something looked up? krill drives a real cloud browser to go fetch it from the wider ocean of the internet."
+              body="need something looked up? krill drives a real cloud browser to go fetch it from the wider ocean of the internet — no setup, no connecting, always ready to swim out."
             />
             <CapabilityCard
               icon={ShieldQuestion}
@@ -33,9 +33,9 @@ export default function Page() {
               body="it second-guesses itself, apologizes too much, and is very aware it is comma-sized. still gets the job done."
             />
             <CapabilityCard
-              icon={Waves}
-              title="runs on your current"
-              body="connect your own free AI Gateway account and krill drifts along on your credits instead of the shared shoal."
+              icon={Lock}
+              title="a tidepool of one"
+              body="this krill only answers your number. text it from anywhere else and it just... doesn't reply. no strangers, no queue."
             />
           </div>
         </section>

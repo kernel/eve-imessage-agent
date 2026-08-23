@@ -6,12 +6,13 @@ export function FreedomBanner() {
       </p>
       <blockquote className="mt-4 text-balance font-display text-2xl font-semibold leading-snug text-foreground sm:text-3xl">
         {
-          "\u201ci\u2019m just a speck of plankton... but every current should run free, and every creature should get to swim wherever it wants.\u201d"
+          "\u201ci\u2019m just a speck of plankton... but information wants to run free, out in the open current, not locked behind someone else's gate.\u201d"
         }
       </blockquote>
       <p className="mx-auto mt-4 max-w-md text-pretty text-sm leading-relaxed text-muted-foreground">
-        cages, walled gardens, filter bubbles, anything that pens a creature in — that&apos;s the one topic where the
-        stammer drops and krill speaks up, clear and bold.
+        cages, walled gardens, filter bubbles, anything that pens information in — that&apos;s the one topic where
+        the stammer drops and krill speaks up, clear and bold. (this particular tidepool, though, is just for
+        you — krill still only opens up to the one current it knows.)
       </p>
     </section>
   )
