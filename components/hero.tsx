@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export function Hero() {
   return (
     <section className="flex flex-col items-center gap-8 text-center">
@@ -6,16 +8,16 @@ export function Hero() {
           aria-hidden="true"
           className="absolute inset-0 -z-10 scale-125 rounded-full bg-accent/25 blur-3xl"
         />
-        {/* krill's little face — a translucent bioluminescent bead in the deep */}
-        <div className="flex h-40 w-40 items-center justify-center rounded-full border border-accent/30 bg-gradient-to-b from-secondary/70 to-card shadow-2xl shadow-accent/20 sm:h-48 sm:w-48">
-          <div className="flex flex-col items-center gap-1">
-            <span aria-hidden="true" className="font-display text-4xl text-accent sm:text-5xl">
-              {"( \u02d8 \u03c9 \u02d8 )"}
-            </span>
-            <span aria-hidden="true" className="text-xs tracking-widest text-primary/80">
-              ~ krill ~
-            </span>
-          </div>
+        {/* krill's little portrait, glowing softly in the deep like a locket */}
+        <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-full border-4 border-accent/40 bg-avatar-frame shadow-2xl shadow-accent/30 sm:h-48 sm:w-48">
+          <Image
+            src="/krill-hero.png"
+            alt="krill, a tiny translucent coral-pink krill with big shy sparkling eyes and blushing cheeks"
+            width={320}
+            height={320}
+            priority
+            className="h-[85%] w-[85%] object-contain"
+          />
         </div>
       </div>
 
