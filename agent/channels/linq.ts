@@ -1,11 +1,12 @@
 import { connectLinqCredentials } from "@vercel/connect/eve";
 import { linqChannel } from "eve/channels/linq";
 
-// Comma-separated allowlist of who may text krill, e.g.
-// "+15551234567, +15559876543". Leave unset to allow anyone (no restriction).
-// Entries are matched against the sender's Linq handle both verbatim (so
-// Apple-ID email handles work) and as normalized digits (so phone numbers
-// match regardless of spacing, dashes, parens, or a leading "+"/"1").
+// Comma-separated allowlist of who may text krill. Despite the name, Linq
+// identifies a sender by a stable opaque handle (a UUID like
+// "73532a3d-9d24-44aa-9142-e0d5b6532efd"), NOT necessarily a phone number --
+// so put that exact handle here. Phone-number-style handles are also matched
+// leniently (spacing, dashes, parens, and a leading "+"/"1" are ignored).
+// Leave unset to allow anyone (no restriction).
 const ALLOWED_RAW = new Set(
   (process.env.ALLOWED_PHONE_NUMBERS ?? "")
     .split(",")
@@ -27,10 +28,14 @@ function isAllowedSender(userId: string): boolean {
   if (ALLOWED_RAW.size === 0) return true;
 
   const raw = userId.trim();
+  // Exact match handles opaque UUID handles and email handles verbatim.
   if (ALLOWED_RAW.has(raw)) return true;
 
+  // Lenient digit match only helps for phone-number-style handles; a UUID
+  // won't collide here because its normalized digits won't equal a real
+  // 10-digit phone number in the allowlist.
   const digits = normalizeDigits(raw);
-  return digits.length > 0 && ALLOWED_DIGITS.has(digits);
+  return digits.length >= 10 && ALLOWED_DIGITS.has(digits);
 }
 
 export default linqChannel({
@@ -42,23 +47,12 @@ export default linqChannel({
   onMessage(_ctx, message) {
     if (message.author.isBot) return null;
 
-    // TEMPORARY DIAGNOSTIC: log the exact identity Linq reports for the sender
-    // so we can lock ALLOWED_PHONE_NUMBERS to the precise value. iMessage may
-    // report an Apple-ID email instead of a phone number, which would silently
-    // fail the allowlist. Remove this block once the handle is confirmed.
-    console.log("[v0] inbound sender identity", {
-      userId: message.author.userId,
-      fullName: message.author.fullName,
-      wouldBeAllowed: isAllowedSender(message.author.userId),
-      allowlistConfigured: ALLOWED_RAW.size > 0,
-    });
-
-    // TEMPORARILY DISABLED so krill replies to everyone while we capture the
-    // real handle above. Re-enable this drop once the allowlist is verified.
-    // if (!isAllowedSender(message.author.userId)) {
-    //   console.log("[v0] ignoring message from non-allowlisted sender", message.author.userId);
-    //   return null;
-    // }
+    // Silently ignore anyone not on the allowlist -- no reply, no error, so a
+    // stranger who gets ahold of the number can't tell krill even exists.
+    if (!isAllowedSender(message.author.userId)) {
+      console.log("[v0] ignoring message from non-allowlisted sender", message.author.userId);
+      return null;
+    }
 
     return {
       // Key the session to the texter's own Linq user id (their iMessage
@@ -70,13 +64,7 @@ export default linqChannel({
         principalId: message.author.userId,
         principalType: "user",
       },
-      context: [
-        `The sender is ${message.author.fullName}.`,
-        // TEMPORARY DIAGNOSTIC: expose the exact Linq handle so it can be read
-        // back in-thread to configure the allowlist. Remove this line (and the
-        // matching instruction in instructions.md) once the handle is captured.
-        `[diagnostic] This sender's exact Linq handle (userId) is: "${message.author.userId}". If the sender asks what their handle or userId is, reply with this exact string verbatim, including any punctuation.`,
-      ],
+      context: [`The sender is ${message.author.fullName}.`],
     };
   },
 });
