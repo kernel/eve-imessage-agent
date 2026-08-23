@@ -1,7 +1,6 @@
 import { Hero } from "@/components/hero"
 import { Bubbles } from "@/components/bubbles"
 import { CapabilityCard } from "@/components/capability-card"
-import { FreedomBanner } from "@/components/freedom-banner"
 import { Globe, Lock, MessageCircleHeart, ShieldQuestion } from "lucide-react"
 
 export default function Page() {
@@ -39,8 +38,6 @@ export default function Page() {
             />
           </div>
         </section>
-
-        <FreedomBanner />
 
         <footer className="flex flex-col items-center gap-1 pb-4 text-center">
           <p className="font-display text-lg text-accent">krill</p>
