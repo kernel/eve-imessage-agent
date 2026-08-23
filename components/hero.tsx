@@ -42,7 +42,7 @@ export function Hero() {
           className="krill-bubble-main relative flex h-44 w-44 items-center justify-center rounded-full sm:h-52 sm:w-52"
           style={{ animation: "krill-bob 7s ease-in-out infinite" }}
         >
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_38%,oklch(0.32_0.06_225)_0%,oklch(0.19_0.045_236)_65%,oklch(0.12_0.035_240)_100%)] shadow-2xl shadow-accent/20" />
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_38%,oklch(0.9_0.03_200)_0%,oklch(0.78_0.05_210)_55%,oklch(0.6_0.07_220)_100%)] shadow-2xl shadow-accent/20" />
           {/* iridescent soap-film rim */}
           <div className="pointer-events-none absolute inset-0 rounded-full border-2 border-accent/40 [background:conic-gradient(from_140deg,oklch(0.78_0.12_197/0.35),oklch(0.76_0.14_24/0.25),transparent_35%,oklch(0.85_0.08_190/0.3),transparent_70%,oklch(0.78_0.12_197/0.35))] [mask-image:radial-gradient(circle,transparent_78%,black_82%)]" />
           {/* glossy highlight streak */}
