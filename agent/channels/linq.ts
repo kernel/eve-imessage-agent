@@ -42,12 +42,23 @@ export default linqChannel({
   onMessage(_ctx, message) {
     if (message.author.isBot) return null;
 
-    // Silently ignore anyone not on the allowlist -- no reply, no error, so a
-    // stranger who gets ahold of the number can't tell krill even exists.
-    if (!isAllowedSender(message.author.userId)) {
-      console.log("[v0] ignoring message from non-allowlisted sender", message.author.userId);
-      return null;
-    }
+    // TEMPORARY DIAGNOSTIC: log the exact identity Linq reports for the sender
+    // so we can lock ALLOWED_PHONE_NUMBERS to the precise value. iMessage may
+    // report an Apple-ID email instead of a phone number, which would silently
+    // fail the allowlist. Remove this block once the handle is confirmed.
+    console.log("[v0] inbound sender identity", {
+      userId: message.author.userId,
+      fullName: message.author.fullName,
+      wouldBeAllowed: isAllowedSender(message.author.userId),
+      allowlistConfigured: ALLOWED_RAW.size > 0,
+    });
+
+    // TEMPORARILY DISABLED so krill replies to everyone while we capture the
+    // real handle above. Re-enable this drop once the allowlist is verified.
+    // if (!isAllowedSender(message.author.userId)) {
+    //   console.log("[v0] ignoring message from non-allowlisted sender", message.author.userId);
+    //   return null;
+    // }
 
     return {
       // Key the session to the texter's own Linq user id (their iMessage
