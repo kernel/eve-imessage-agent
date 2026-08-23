@@ -1,23 +1,44 @@
 import Image from "next/image"
 
+const PORTRAIT_BUBBLES = [
+  { left: "6%", top: "72%", size: 8, delay: 0.4, duration: 6 },
+  { left: "88%", top: "20%", size: 6, delay: 2, duration: 7 },
+  { left: "80%", top: "78%", size: 10, delay: 3.5, duration: 5.5 },
+  { left: "14%", top: "12%", size: 5, delay: 1.2, duration: 6.5 },
+]
+
 export function Hero() {
   return (
     <section className="flex flex-col items-center gap-8 text-center">
       <div className="relative">
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 scale-125 rounded-full bg-accent/25 blur-3xl"
+          className="absolute inset-0 -z-10 scale-150 rounded-full bg-accent/20 blur-3xl"
         />
-        {/* krill's little portrait, glowing softly in the deep like a locket */}
-        <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-full border-4 border-accent/40 bg-avatar-frame shadow-2xl shadow-accent/30 sm:h-48 sm:w-48">
+        {/* krill's portrait, adrift in the deep sea rather than boxed on white */}
+        <div className="relative flex h-44 w-44 items-center justify-center overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_38%,oklch(0.32_0.06_225)_0%,oklch(0.19_0.045_236)_65%,oklch(0.12_0.035_240)_100%)] shadow-2xl shadow-accent/20 ring-1 ring-accent/25 sm:h-52 sm:w-52">
           <Image
             src="/krill-hero.png"
             alt="krill, a tiny translucent coral-pink krill with big shy sparkling eyes and blushing cheeks"
             width={320}
             height={320}
             priority
-            className="h-[85%] w-[85%] object-contain"
+            className="h-[78%] w-[78%] object-contain mix-blend-multiply"
           />
+          {PORTRAIT_BUBBLES.map((b, i) => (
+            <span
+              key={i}
+              aria-hidden="true"
+              className="krill-bubble absolute rounded-full border border-accent/50 bg-accent/15"
+              style={{
+                left: b.left,
+                top: b.top,
+                width: b.size,
+                height: b.size,
+                animation: `krill-drift ${b.duration}s ease-in-out ${b.delay}s infinite`,
+              }}
+            />
+          ))}
         </div>
       </div>
 
