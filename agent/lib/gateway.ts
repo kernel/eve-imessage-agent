@@ -9,7 +9,7 @@ import {
 /** Vercel Connect connector UID for the "AI Gateway Access" connector. */
 export const GATEWAY_CONNECTOR = "mcp.vercel.com/ai-gateway-access";
 
-/** The default gateway model id krill uses, shared or per-texter. */
+/** The gateway model id krill uses, always billed to the texter's own account. */
 export const DEFAULT_MODEL_ID = "zai/glm-5.2";
 
 /** Builds the Connect subject for one texter, keyed by their Linq user id. */

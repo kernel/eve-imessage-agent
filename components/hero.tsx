@@ -93,14 +93,12 @@ export function Hero() {
         </div>
 
         <Button
-          asChild
           size="lg"
           className="w-full gap-2 rounded-full text-base font-semibold shadow-lg shadow-primary/25"
+          render={<a href={KRILL_SMS_HREF} />}
         >
-          <a href={KRILL_SMS_HREF} className="inline-flex items-center justify-center gap-2">
-            <MessageCircle className="size-5 shrink-0" aria-hidden="true" />
-            text krill
-          </a>
+          <MessageCircle className="size-5 shrink-0" aria-hidden="true" />
+          text krill
         </Button>
         <a
           href={KRILL_SMS_HREF}
