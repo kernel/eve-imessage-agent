@@ -1,44 +1,64 @@
 import Image from "next/image"
 
-const PORTRAIT_BUBBLES = [
-  { left: "6%", top: "72%", size: 8, delay: 0.4, duration: 6 },
-  { left: "88%", top: "20%", size: 6, delay: 2, duration: 7 },
-  { left: "80%", top: "78%", size: 10, delay: 3.5, duration: 5.5 },
-  { left: "14%", top: "12%", size: 5, delay: 1.2, duration: 6.5 },
+// small satellite bubbles that rise past krill's own bubble
+const RISING_BUBBLES = [
+  { left: "-6%", size: 9, delay: 0.2, duration: 5.5, drift: "10px" },
+  { left: "108%", size: 6, delay: 1.6, duration: 6.5, drift: "-8px" },
+  { left: "18%", size: 5, delay: 3, duration: 5, drift: "6px" },
+  { left: "92%", size: 8, delay: 2.2, duration: 7, drift: "-14px" },
+  { left: "58%", size: 4, delay: 4.2, duration: 5.8, drift: "4px" },
 ]
 
 export function Hero() {
   return (
     <section className="flex flex-col items-center gap-8 text-center">
-      <div className="relative">
+      <div className="relative flex h-56 w-56 items-center justify-center sm:h-64 sm:w-64">
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 scale-150 rounded-full bg-accent/20 blur-3xl"
+          className="absolute inset-0 scale-150 rounded-full bg-accent/20 blur-3xl"
         />
-        {/* krill's portrait, adrift in the deep sea rather than boxed on white */}
-        <div className="relative flex h-44 w-44 items-center justify-center overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_38%,oklch(0.32_0.06_225)_0%,oklch(0.19_0.045_236)_65%,oklch(0.12_0.035_240)_100%)] shadow-2xl shadow-accent/20 ring-1 ring-accent/25 sm:h-52 sm:w-52">
+
+        {/* rising bubbles pass behind and in front of krill's bubble */}
+        {RISING_BUBBLES.map((b, i) => (
+          <span
+            key={i}
+            aria-hidden="true"
+            className="krill-bubble absolute bottom-0 rounded-full border border-accent/50 bg-accent/10"
+            style={
+              {
+                left: b.left,
+                width: b.size,
+                height: b.size,
+                "--bubble-drift": b.drift,
+                "--bubble-opacity": 0.6,
+                animation: `krill-rise ${b.duration}s ease-in ${b.delay}s infinite`,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+
+        {/* krill's own bubble: a glassy sphere that bobs and wobbles */}
+        <div
+          className="krill-bubble-main relative flex h-44 w-44 items-center justify-center rounded-full sm:h-52 sm:w-52"
+          style={{ animation: "krill-bob 7s ease-in-out infinite" }}
+        >
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_38%,oklch(0.32_0.06_225)_0%,oklch(0.19_0.045_236)_65%,oklch(0.12_0.035_240)_100%)] shadow-2xl shadow-accent/20" />
+          {/* iridescent soap-film rim */}
+          <div className="pointer-events-none absolute inset-0 rounded-full border-2 border-accent/40 [background:conic-gradient(from_140deg,oklch(0.78_0.12_197/0.35),oklch(0.76_0.14_24/0.25),transparent_35%,oklch(0.85_0.08_190/0.3),transparent_70%,oklch(0.78_0.12_197/0.35))] [mask-image:radial-gradient(circle,transparent_78%,black_82%)]" />
+          {/* glossy highlight streak */}
+          <div
+            aria-hidden="true"
+            className="krill-shine pointer-events-none absolute left-[14%] top-[10%] h-10 w-16 rounded-full bg-white/50 blur-md"
+            style={{ animation: "krill-shimmer 6s ease-in-out infinite" }}
+          />
           <Image
             src="/krill-hero.png"
             alt="krill, a tiny translucent coral-pink krill with big shy sparkling eyes and blushing cheeks"
             width={320}
             height={320}
             priority
-            className="h-[78%] w-[78%] object-contain mix-blend-multiply"
+            className="relative h-[78%] w-[78%] object-contain mix-blend-multiply"
           />
-          {PORTRAIT_BUBBLES.map((b, i) => (
-            <span
-              key={i}
-              aria-hidden="true"
-              className="krill-bubble absolute rounded-full border border-accent/50 bg-accent/15"
-              style={{
-                left: b.left,
-                top: b.top,
-                width: b.size,
-                height: b.size,
-                animation: `krill-drift ${b.duration}s ease-in-out ${b.delay}s infinite`,
-              }}
-            />
-          ))}
         </div>
       </div>
 

@@ -124,6 +124,37 @@
   }
 }
 
+@keyframes krill-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(1.5deg);
+  }
+}
+
+@keyframes krill-shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translate(-4%, -4%) rotate(0deg);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(4%, 4%) rotate(6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .krill-bubble-main {
+    animation: none !important;
+  }
+  .krill-shine {
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .krill-bubble {
     animation: none !important;
