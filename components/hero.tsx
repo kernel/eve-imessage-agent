@@ -1,4 +1,8 @@
 import Image from "next/image"
+import { ArrowUpRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
+const DEPLOY_TEMPLATE_URL = "https://vercel.com/onkernel/eve-imessage-agent"
 
 // small satellite bubbles that rise past krill's own bubble
 const RISING_BUBBLES = [
@@ -75,6 +79,16 @@ export function Hero() {
             "a tiny, translucent, faintly-nervous little krill drifting in the big open ocean — who happens to text back."
           }
         </p>
+        <Button
+          variant="outline"
+          size="lg"
+          nativeButton={false}
+          className="gap-1.5 rounded-full"
+          render={<a href={DEPLOY_TEMPLATE_URL} target="_blank" rel="noopener noreferrer" />}
+        >
+          deploy your own krill
+          <ArrowUpRight className="size-4 shrink-0" aria-hidden="true" />
+        </Button>
       </div>
     </section>
   )
