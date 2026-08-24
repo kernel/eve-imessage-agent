@@ -90,34 +90,16 @@ local `.env.local` for development:
 | Variable | Required? | What it's for |
 | --- | --- | --- |
 | `KERNEL_API_KEY` | **Yes** | Your Kernel cloud-browser API key (step 3). |
-| `ALLOWED_PHONE_NUMBERS` | Optional | Restricts who can text krill — see below. |
 
 The AI model credential (`AI_GATEWAY_API_KEY`) is provisioned automatically on
 Vercel, so you don't need to add it.
 
-### Making krill *personal* (the allowlist)
+### Who can text krill?
 
-By default, anyone who has the number can text krill. To lock it down to just
-**you** (or a small circle), set `ALLOWED_PHONE_NUMBERS` to a comma-separated
-list of the senders you allow. Anyone else is silently ignored — no reply, no
-hint that the agent exists.
-
-```bash
-ALLOWED_PHONE_NUMBERS="73532a3d-9d24-44aa-9142-e0d5b6532efd"
-# multiple people:
-# ALLOWED_PHONE_NUMBERS="handle-or-number-1, handle-or-number-2"
-```
-
-**Important gotcha:** despite the variable name, Linq usually identifies a
-sender by a **stable opaque handle** (a UUID like the example above), *not* a
-phone number. Phone-number-style handles are matched leniently (spacing,
-dashes, and a leading `+1` are ignored), but the reliable value to use is the
-sender's exact handle.
-
-**How to find your handle:** the easiest way is to deploy first with the
-allowlist unset (so krill replies to everyone), text it, and ask *"what is my
-handle?"* — krill can read back the exact `userId` it sees. Paste that value
-into `ALLOWED_PHONE_NUMBERS` and redeploy.
+There's no custom allowlist to configure — krill is personal by construction.
+Linq only routes messages from conversations tied to the account/line you
+connected in step 2, so krill only ever hears from people who have that
+number. Nothing else to set up here.
 
 ---
 
@@ -168,7 +150,7 @@ Once deployed, **text your Linq number** and krill will text back.
 agent/
 ├── agent.ts              # model + runtime config
 ├── instructions.md       # krill's system prompt (voice & behavior)
-├── channels/linq.ts      # the iMessage/SMS channel + personal allowlist
+├── channels/linq.ts      # the iMessage/SMS channel
 └── extensions/kernel.ts  # the Kernel cloud-browser credential
 app/                      # Next.js landing page
 components/               # landing-page UI
