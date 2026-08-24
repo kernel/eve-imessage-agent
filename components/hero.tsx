@@ -1,12 +1,4 @@
 import Image from "next/image"
-import { MessageCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-
-// krill's inbound iMessage / SMS line
-const KRILL_NUMBER = "+12055030476"
-const KRILL_NUMBER_DISPLAY = "+1 (205) 503-0476"
-const KRILL_GREETING = "hi krill!"
-const KRILL_SMS_HREF = `sms:${KRILL_NUMBER}?&body=${encodeURIComponent(KRILL_GREETING)}`
 
 // small satellite bubbles that rise past krill's own bubble
 const RISING_BUBBLES = [
@@ -83,24 +75,6 @@ export function Hero() {
             "a tiny, translucent, faintly-nervous little krill drifting in the big open ocean — who happens to text back."
           }
         </p>
-      </div>
-
-      <div className="flex w-full max-w-sm flex-col items-center gap-4">
-        <Button
-          size="lg"
-          nativeButton={false}
-          className="w-full gap-2 rounded-full text-base font-semibold shadow-lg shadow-primary/25"
-          render={<a href={KRILL_SMS_HREF} />}
-        >
-          <MessageCircle className="size-5 shrink-0" aria-hidden="true" />
-          text krill
-        </Button>
-        <a
-          href={KRILL_SMS_HREF}
-          className="text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
-        >
-          {KRILL_NUMBER_DISPLAY}
-        </a>
       </div>
     </section>
   )
