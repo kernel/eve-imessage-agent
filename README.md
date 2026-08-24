@@ -119,10 +119,6 @@ allowlist unset (so krill replies to everyone), text it, and ask *"what is my
 handle?"* — krill can read back the exact `userId` it sees. Paste that value
 into `ALLOWED_PHONE_NUMBERS` and redeploy.
 
-> Note: Linq also appears to only route messages from your own account's
-> conversations, so it provides a layer of isolation on its own. The allowlist
-> is defense-in-depth on top of that.
-
 ---
 
 ## 5. Run it locally

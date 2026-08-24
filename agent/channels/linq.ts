@@ -47,18 +47,12 @@ export default linqChannel({
   onMessage(_ctx, message) {
     if (message.author.isBot) return null;
 
-    // TEMPORARILY DISABLED for an isolation test: confirming whether the Linq
-    // connector itself does any inbound number filtering, independent of our
-    // own allowlist. Still logging what our gate WOULD have decided. Re-enable
-    // the `return null` drop below once the test is done.
-    console.log("[v0] allowlist check (drop disabled for test)", {
-      userId: message.author.userId,
-      wouldBeAllowed: isAllowedSender(message.author.userId),
-    });
-    // if (!isAllowedSender(message.author.userId)) {
-    //   console.log("[v0] ignoring message from non-allowlisted sender", message.author.userId);
-    //   return null;
-    // }
+    // Silently ignore anyone not on the allowlist -- no reply, no error, so a
+    // stranger who gets ahold of the number can't tell krill even exists.
+    if (!isAllowedSender(message.author.userId)) {
+      console.log("[v0] ignoring message from non-allowlisted sender", message.author.userId);
+      return null;
+    }
 
     return {
       // Key the session to the texter's own Linq user id (their iMessage
