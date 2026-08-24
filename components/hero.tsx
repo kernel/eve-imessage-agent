@@ -80,18 +80,12 @@ export function Hero() {
         </h1>
         <p className="max-w-md text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
           {
-            "a tiny, translucent, faintly-nervous little krill drifting in the big open ocean — who happens to text back. small creature, big heart, and one very loud opinion about freedom."
+            "a tiny, translucent, faintly-nervous little krill drifting in the big open ocean — who happens to text back."
           }
         </p>
       </div>
 
       <div className="flex w-full max-w-sm flex-col items-center gap-4">
-        <div className="w-full rounded-3xl rounded-br-md bg-primary px-5 py-3 text-left text-primary-foreground shadow-lg">
-          <p className="text-[15px] leading-snug">
-            {"u-um... hi! you can text me anything, and i\u2019ll do my little best to help~"}
-          </p>
-        </div>
-
         <Button
           size="lg"
           nativeButton={false}
