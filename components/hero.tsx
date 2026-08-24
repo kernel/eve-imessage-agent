@@ -2,7 +2,7 @@ import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const DEPLOY_TEMPLATE_URL = "https://vercel.com/onkernel/eve-imessage-agent"
+const DEPLOY_TEMPLATE_URL = "https://github.com/kernel/eve-imessage-agent"
 
 // small satellite bubbles that rise past krill's own bubble
 const RISING_BUBBLES = [
