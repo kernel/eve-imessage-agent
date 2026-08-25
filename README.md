@@ -114,8 +114,19 @@ it just reads `process.env.KERNEL_API_KEY`.
 
 ## 5. Set your environment variables
 
-Add these in your Vercel project (**Settings → Environment Variables**), or in a
-local `.env.local` for development:
+Set this on your Vercel project **before you deploy** — without it, krill's
+browser tool fails as soon as anyone texts it something that needs a lookup:
+
+```bash
+vercel env add KERNEL_API_KEY production
+```
+
+(paste the key from the [Kernel dashboard](https://onkernel.com) when
+prompted). This needs a Vercel project already linked — if step 3 didn't set
+one up for you (e.g. you used portable Linq credentials instead of Vercel
+Connect) and you haven't run `eve deploy` yet, run `vercel link` first. You
+can also add it from the dashboard instead (**Settings → Environment
+Variables**), and for local development, put it in a `.env.local` file.
 
 | Variable | Required? | What it's for |
 | --- | --- | --- |
@@ -123,6 +134,10 @@ local `.env.local` for development:
 
 The AI model credential (`AI_GATEWAY_API_KEY`) is provisioned automatically on
 Vercel, so you don't need to add it.
+
+> Adding or changing an env var after you've already deployed? Redeploy
+> (`pnpm exec eve deploy`, step 7) for it to take effect — Vercel doesn't
+> inject new env vars into a build that already ran.
 
 ### Who can text krill?
 
