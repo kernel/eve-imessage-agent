@@ -1,7 +1,7 @@
 # krill — build a personal iMessage agent with Kernel + Linq
 
 <p align="center">
-  <img src="public/krill-hero.png" alt="krill, a small pink translucent shrimp-like mascot" width="240" />
+  <img src="landing/public/krill-hero.png" alt="krill, a small pink translucent shrimp-like mascot" width="240" />
 </p>
 
 **krill** is a tiny AI agent that lives inside your iMessage/SMS thread. Text it
@@ -160,8 +160,10 @@ Once deployed, **text your Linq number** and krill will text back.
   is krill's system prompt. Rewrite it to give your agent any voice you like.
 - **The model:** [`agent/agent.ts`](agent/agent.ts) sets the model ID
   (`provider/model` form, e.g. `anthropic/claude-opus-4.8`).
-- **The landing page:** everything under `app/` and `components/` is a normal
-  Next.js + Tailwind site describing your agent.
+- **The landing page:** krill's real interface is the phone number, so the
+  marketing page v0 generated isn't part of the deployed app or its build —
+  it lives in [`landing/`](landing/README.md), which has its own
+  README on running it locally or wiring it back in if you want it deployed.
 
 ---
 
@@ -173,8 +175,8 @@ agent/
 ├── instructions.md       # krill's system prompt (voice & behavior)
 ├── channels/linq.ts      # the iMessage/SMS channel
 └── extensions/kernel.ts  # the Kernel cloud-browser credential
-app/                      # Next.js landing page
-components/               # landing-page UI
+app/                      # minimal Next.js root eve needs to build/deploy
+landing/                  # optional marketing page, not part of the build
 ```
 
 ---
