@@ -150,10 +150,16 @@ pnpm exec eve dev
 
 ## 7. Deploy
 
-Push the project to Vercel (via the dashboard, the GitHub integration, or
-`vercel`). Because the project is wrapped with `withEve`, this deploys the
-agent — including the `/eve/v1/*` webhook routes Linq delivers to — as its
-own Vercel service alongside the (now landing-page-free) root Next.js app.
+```bash
+pnpm exec eve deploy
+```
+
+This links a Vercel project first if you haven't already, then deploys
+straight to production (pushing to GitHub with the Vercel integration
+enabled, or running `vercel --prod` yourself, both work too). Because the
+project is wrapped with `withEve`, this deploys the agent —
+including the `/eve/v1/*` webhook routes Linq delivers to — as its own
+Vercel service alongside the (now landing-page-free) root Next.js app.
 
 Once deployed, **text your Linq number** and krill will text back.
 
