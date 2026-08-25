@@ -66,9 +66,17 @@ This walks you through:
    connector UID `linq/krill-imessage`; the name you enter here becomes that
    connector's UID (`vercel connect create linq --name <name>` under the
    hood), so it has to match exactly or krill won't find its credentials.
-3. Choosing to **create a managed Linq account + line**, or **connect an
-   existing Linq account** with its partner API token.
-4. **Select the phone number(s)** you want krill to use.
+3. Choosing which Linq account to use:
+   - **Create a new Linq account** (the default) — Linq provisions a brand
+     new phone number for you; you don't pick one. **This is the only place
+     the number shows up** — eve prints it to the terminal as a "Text your
+     agent" note at the end of setup and it isn't written anywhere in the
+     repo, so copy it down before you lose the output. If you misplace it
+     later, it's visible from your [Linq dashboard](https://linqapp.com) or
+     the connector's data in your Vercel project's Connect settings.
+   - **Use an existing Linq account** — paste your Linq partner API token
+     and eve lists every phone number already tied to it so you can pick
+     which one(s) krill uses.
 
 eve then configures the connector and the inbound webhook for you.
 
