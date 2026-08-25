@@ -12,7 +12,7 @@ It's built on three pieces:
 
 | Piece | What it does | How it's wired |
 | --- | --- | --- |
-| [**eve**](https://eve.dev) | The agent framework (instructions, tools, channels) + the Next.js landing page | `agent/` folder + `withEve` |
+| [**eve**](https://eve.dev) | The agent framework (instructions, tools, channels) | `agent/` folder + `withEve` |
 | [**Linq**](https://linqapp.com) | Gives the agent a real phone line for iMessage/SMS | Vercel Connect connector |
 | [**Kernel**](https://onkernel.com) | A live cloud browser the agent can drive | `KERNEL_API_KEY` env var |
 
@@ -36,7 +36,16 @@ Before you start, make sure you have:
 
 ---
 
-## 1. Install
+## 1. Clone the repo
+
+```bash
+git clone https://github.com/kernel/eve-imessage-agent.git
+cd eve-imessage-agent
+```
+
+---
+
+## 2. Install
 
 ```bash
 pnpm install
@@ -46,7 +55,7 @@ This installs both the Next.js frontend and the eve agent runtime.
 
 ---
 
-## 2. Connect Linq (the iMessage line)
+## 3. Connect Linq (the iMessage line)
 
 Linq is what gives krill an actual phone number people can text. It's connected
 through **Vercel Connect**, so you never paste raw API tokens.
@@ -88,7 +97,7 @@ eve then configures the connector and the inbound webhook for you.
 
 ---
 
-## 3. Connect Kernel (the cloud browser)
+## 4. Connect Kernel (the cloud browser)
 
 Kernel gives krill a real browser it can drive to fetch live info from the web.
 This one uses a simple shared API key so every texter gets the same browser with
@@ -103,14 +112,14 @@ it just reads `process.env.KERNEL_API_KEY`.
 
 ---
 
-## 4. Set your environment variables
+## 5. Set your environment variables
 
 Add these in your Vercel project (**Settings → Environment Variables**), or in a
 local `.env.local` for development:
 
 | Variable | Required? | What it's for |
 | --- | --- | --- |
-| `KERNEL_API_KEY` | **Yes** | Your Kernel cloud-browser API key (step 3). |
+| `KERNEL_API_KEY` | **Yes** | Your Kernel cloud-browser API key (step 4). |
 
 The AI model credential (`AI_GATEWAY_API_KEY`) is provisioned automatically on
 Vercel, so you don't need to add it.
@@ -119,18 +128,18 @@ Vercel, so you don't need to add it.
 
 There's no custom allowlist to configure — krill is personal by construction.
 Linq only routes messages from conversations tied to the account/line you
-connected in step 2, so krill only ever hears from people who have that
+connected in step 3, so krill only ever hears from people who have that
 number. Nothing else to set up here.
 
 ---
 
-## 5. Run it locally
+## 6. Run it locally
 
 ```bash
 pnpm dev
 ```
 
-This starts the Next.js app (the landing page) together with the eve agent. To
+This starts the minimal root Next.js app together with the eve agent. To
 exercise the agent directly in a local REPL:
 
 ```bash
@@ -139,12 +148,12 @@ pnpm exec eve dev
 
 ---
 
-## 6. Deploy
+## 7. Deploy
 
 Push the project to Vercel (via the dashboard, the GitHub integration, or
-`vercel`). Because the project is wrapped with `withEve`, the landing page and
-the agent — including the `/eve/v1/*` webhook routes Linq delivers to — build
-and deploy together as one project.
+`vercel`). Because the project is wrapped with `withEve`, this deploys the
+agent — including the `/eve/v1/*` webhook routes Linq delivers to — as its
+own Vercel service alongside the (now landing-page-free) root Next.js app.
 
 Once deployed, **text your Linq number** and krill will text back.
 
