@@ -103,7 +103,7 @@ Kernel gives krill a real browser it can drive to fetch live info from the web.
 This one uses a simple shared API key so every texter gets the same browser with
 no per-person login.
 
-1. Grab your API key from the [Kernel dashboard](https://onkernel.com).
+1. Grab your API key from the [Kernel dashboard](https://dashboard.onkernel.com/kernel/api-keys).
 2. Add it as an environment variable named **`KERNEL_API_KEY`** (see the next
    step for where).
 
@@ -121,8 +121,8 @@ browser tool fails as soon as anyone texts it something that needs a lookup:
 vercel env add KERNEL_API_KEY production
 ```
 
-(paste the key from the [Kernel dashboard](https://onkernel.com) when
-prompted). This needs a Vercel project already linked — if step 3 didn't set
+(paste the key from the [Kernel dashboard](https://dashboard.onkernel.com/kernel/api-keys)
+when prompted). This needs a Vercel project already linked — if step 3 didn't set
 one up for you (e.g. you used portable Linq credentials instead of Vercel
 Connect) and you haven't run `eve deploy` yet, run `vercel link` first. You
 can also add it from the dashboard instead (**Settings → Environment
