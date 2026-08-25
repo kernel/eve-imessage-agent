@@ -23,10 +23,17 @@ Before you start, make sure you have:
 
 - **Node.js 24** (`node -v` should print `v24.x`)
 - **[pnpm](https://pnpm.io)** (`npm install -g pnpm`)
-- A **[Vercel](https://vercel.com) account**, with the
-  **[Vercel CLI](https://vercel.com/docs/cli) installed and logged in**
-  (`vercel login`) — the agent deploys here, and Linq is set up through Vercel
-  Connect, which requires an authenticated CLI
+- A **[Vercel](https://vercel.com) account**, with the **Vercel CLI**
+  installed and logged in — the agent deploys here, and Linq is set up
+  through Vercel Connect, which requires an authenticated CLI:
+
+  ```bash
+  npm install -g vercel
+  vercel login
+  ```
+
+  (See the [Vercel CLI docs](https://vercel.com/docs/cli) for other install
+  options, e.g. Homebrew.)
 - A **[Linq](https://linqapp.com) account** with at least one phone number/line
 - A **[Kernel](https://onkernel.com) account** (for the cloud browser)
 
@@ -56,10 +63,14 @@ This installs the minimal Next.js app and the eve agent runtime.
 Linq is what gives krill an actual phone number people can text. It's connected
 through **Vercel Connect**, so you never paste raw API tokens.
 
-From the project root, run:
+The channel's code (`agent/channels/linq.ts`) is already committed in this
+repo, so **don't** run the plain `eve add channel/linq` — it tries to write
+that file again and will refuse, since it already exists, without ever
+reaching the setup wizard. Instead, run it with `--skip-install`, which skips
+the file-write step and only runs the interactive Vercel Connect/Linq setup:
 
 ```bash
-pnpm exec eve add channel/linq
+pnpm exec eve add channel/linq --skip-install
 ```
 
 This walks you through:
