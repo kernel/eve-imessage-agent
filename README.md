@@ -1,9 +1,5 @@
 # krill — build a personal iMessage agent with Kernel + Linq
 
-<p align="center">
-  <img src="landing/public/krill-hero.png" alt="krill, a small pink translucent shrimp-like mascot" width="240" />
-</p>
-
 **krill** is a tiny AI agent that lives inside your iMessage/SMS thread. Text it
 like a friend and it texts back — and when it needs to, it drives a real cloud
 browser to go perform actions and look things up on the internet for you.
@@ -51,7 +47,7 @@ cd eve-imessage-agent
 pnpm install
 ```
 
-This installs both the Next.js frontend and the eve agent runtime.
+This installs the minimal Next.js app and the eve agent runtime.
 
 ---
 
@@ -172,9 +168,9 @@ pnpm exec eve deploy
 This links a Vercel project first if you haven't already, then deploys
 straight to production (pushing to GitHub with the Vercel integration
 enabled, or running `vercel --prod` yourself, both work too). Because the
-project is wrapped with `withEve`, this deploys the agent —
-including the `/eve/v1/*` webhook routes Linq delivers to — as its own
-Vercel service alongside the (now landing-page-free) root Next.js app.
+project is wrapped with `withEve`, this deploys the agent — including the
+`/eve/v1/*` webhook routes Linq delivers to — alongside the minimal root
+Next.js app eve needs to build.
 
 Once deployed, **text your Linq number** and krill will text back.
 
@@ -190,10 +186,9 @@ Once deployed, **text your Linq number** and krill will text back.
   is krill's system prompt. Rewrite it to give your agent any voice you like.
 - **The model:** [`agent/agent.ts`](agent/agent.ts) sets the model ID
   (`provider/model` form, e.g. `anthropic/claude-opus-4.8`).
-- **The landing page:** krill's real interface is the phone number, so the
-  marketing page v0 generated isn't part of the deployed app or its build —
-  it lives in [`landing/`](landing/README.md), which has its own
-  README on running it locally or wiring it back in if you want it deployed.
+- **No landing page:** krill's real interface is the phone number, so there's
+  intentionally no marketing/status page in this repo — just the agent and
+  the minimal Next.js shell `withEve` needs to build and deploy it.
 
 ---
 
@@ -206,7 +201,6 @@ agent/
 ├── channels/linq.ts      # the iMessage/SMS channel
 └── extensions/kernel.ts  # the Kernel cloud-browser credential
 app/                      # minimal Next.js root eve needs to build/deploy
-landing/                  # optional marketing page, not part of the build
 ```
 
 ---
