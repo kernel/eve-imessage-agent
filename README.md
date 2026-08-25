@@ -1,7 +1,7 @@
 # krill — build a personal iMessage agent with Kernel + Linq
 
 <p align="center">
-  <img src="public/krill-hero.png" alt="krill, a small pink translucent shrimp-like mascot" width="240" />
+  <img src="landing/public/krill-hero.png" alt="krill, a small pink translucent shrimp-like mascot" width="240" />
 </p>
 
 **krill** is a tiny AI agent that lives inside your iMessage/SMS thread. Text it
@@ -27,8 +27,10 @@ Before you start, make sure you have:
 
 - **Node.js 24** (`node -v` should print `v24.x`)
 - **[pnpm](https://pnpm.io)** (`npm install -g pnpm`)
-- A **[Vercel](https://vercel.com) account** (the agent deploys here, and both
-  connectors are set up through Vercel Connect)
+- A **[Vercel](https://vercel.com) account**, with the
+  **[Vercel CLI](https://vercel.com/docs/cli) installed and logged in**
+  (`vercel login`) — the agent deploys here, and Linq is set up through Vercel
+  Connect, which requires an authenticated CLI
 - A **[Linq](https://linqapp.com) account** with at least one phone number/line
 - A **[Kernel](https://onkernel.com) account** (for the cloud browser)
 
@@ -55,19 +57,34 @@ From the project root, run:
 pnpm exec eve add channel/linq
 ```
 
-This opens a browser flow where you:
+This walks you through:
 
-1. Sign in with **Vercel Connect** (it links or creates a Vercel project for you).
-2. Choose to **create a managed Linq account + line**, or **connect an existing
-   Linq account** with its partner API token.
-3. **Select the phone number(s)** you want krill to use.
+1. Choosing **Set up Vercel Connect** (it links or creates a Vercel project for you).
+2. A **"Name your Linq agent"** prompt. **Type `krill-imessage`** here — don't
+   accept the suggested default. The channel is already defined in
+   [`agent/channels/linq.ts`](agent/channels/linq.ts), hardcoded to the
+   connector UID `linq/krill-imessage`; the name you enter here becomes that
+   connector's UID (`vercel connect create linq --name <name>` under the
+   hood), so it has to match exactly or krill won't find its credentials.
+3. Choosing which Linq account to use:
+   - **Create a new Linq account** (the default) — Linq provisions a brand
+     new phone number for you; you don't pick one. It isn't written anywhere
+     in the repo — eve prints it once, to the terminal, as a "Text your
+     agent" note at the end of setup, so copy it down before you lose the
+     output. If you misplace it, it's also visible anytime from your
+     [Linq dashboard](https://linqapp.com), which lists the number for the
+     account/line you just created.
+   - **Use an existing Linq account** — paste your Linq partner API token
+     and eve lists every phone number already tied to it so you can pick
+     which one(s) krill uses.
 
-eve then configures the connector and the inbound webhook for you. The channel
-itself is already defined in [`agent/channels/linq.ts`](agent/channels/linq.ts)
-and points at the connector UID `linq/krill-imessage`.
+eve then configures the connector and the inbound webhook for you.
 
-> If you named your connector something different, update the UID in
-> `connectLinqCredentials("linq/krill-imessage")` to match.
+> If you already ran this with a different name, either re-run
+> `vercel connect create linq --name krill-imessage` to create a matching
+> connector, or update the UID in
+> `connectLinqCredentials("linq/krill-imessage")` in `agent/channels/linq.ts`
+> to match the name you used.
 
 ---
 
@@ -143,8 +160,10 @@ Once deployed, **text your Linq number** and krill will text back.
   is krill's system prompt. Rewrite it to give your agent any voice you like.
 - **The model:** [`agent/agent.ts`](agent/agent.ts) sets the model ID
   (`provider/model` form, e.g. `anthropic/claude-opus-4.8`).
-- **The landing page:** everything under `app/` and `components/` is a normal
-  Next.js + Tailwind site describing your agent.
+- **The landing page:** krill's real interface is the phone number, so the
+  marketing page v0 generated isn't part of the deployed app or its build —
+  it lives in [`landing/`](landing/README.md), which has its own
+  README on running it locally or wiring it back in if you want it deployed.
 
 ---
 
@@ -156,8 +175,8 @@ agent/
 ├── instructions.md       # krill's system prompt (voice & behavior)
 ├── channels/linq.ts      # the iMessage/SMS channel
 └── extensions/kernel.ts  # the Kernel cloud-browser credential
-app/                      # Next.js landing page
-components/               # landing-page UI
+app/                      # minimal Next.js root eve needs to build/deploy
+landing/                  # optional marketing page, not part of the build
 ```
 
 ---
