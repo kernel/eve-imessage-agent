@@ -1,5 +1,9 @@
 # krill — build a personal iMessage agent with Kernel + Linq
 
+<p align="center">
+  <img src="public/krill-hero.png" alt="krill, a small pink translucent shrimp-like mascot" width="240" />
+</p>
+
 **krill** is a tiny AI agent that lives inside your iMessage/SMS thread. Text it
 like a friend and it texts back — and when it needs to, it drives a real cloud
 browser to go perform actions and look things up on the internet for you.
