@@ -1,0 +1,5 @@
+minimumReleaseAgeStrict: true
+overrides:
+  hono: 4.12.25
+allowBuilds:
+  sharp: false
