@@ -5,5 +5,5 @@ import { defineAgent } from "eve";
 // setup, and no shared/OAuth token to manage). Every texter uses this same
 // model, billed to this project.
 export default defineAgent({
-  model: "zai/glm-5.2",
+  model: "zai/glm-5.3-flash",
 });
